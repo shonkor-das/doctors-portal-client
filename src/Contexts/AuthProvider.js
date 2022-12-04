@@ -1,16 +1,19 @@
-import { createContext } from "react";
-import React from 'react';
-import {getAuth} from 'firebase/auth';
+import React, { createContext } from 'react';
+import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
 import app from '../Firebase/Firebase.config';
 
 
-const AuthContext = createContext();
-const auth = getAuth(app);
+export const AuthContext = createContext();
+const auth = getAuth(app)
 
 const AuthProvider = ({childern}) => {
 
-    const authInfo = {
+    const createUser = (email, password) =>{
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
 
+    const authInfo = {
+        createUser
     }
     
     return (
