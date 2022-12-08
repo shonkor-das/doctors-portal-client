@@ -66,7 +66,7 @@ const Login = () => {
             </label>
             {errors.password && <p role="alert" className="text-red-500 mb-1">{errors.password?.message}</p>}
           </div>
-          <input className="btn btn-drak text-white w-full" type="submit" />
+          <input className="btn btn-drak text-white w-full" value="Login" type="submit" />
           <div>
             {loginError && <p className="text-red-500">{loginError}</p>}
           </div>

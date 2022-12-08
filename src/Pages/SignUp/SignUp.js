@@ -1,14 +1,15 @@
 import React, {useContext, useState} from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import toast from 'react-hot-toast';
 
 const SignUp = () => {
 
     const {register, handleSubmit, formState: { errors }} = useForm();
-    const {createUser, updateUsser} = useContext(AuthContext);
+    const {createUser, updateUser} = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState('');
+    const navigate = useNavigate();
 
     const handleSignUp = (data) =>{
         console.log(data);
@@ -18,12 +19,14 @@ const SignUp = () => {
         .then(result =>{
           const user = result.user;
           console.log(user);
-          toast('User Create Successfully')
+          toast('User Create Successfully');
           const userInfo = {
             displayName: data.name
           }
-          updateUsser(userInfo)
-          .then(() =>{})
+          updateUser(userInfo)
+          .then(() =>{
+            navigate('/');
+          })
           .catch(err => console.log(err));
         })
       .catch(error => {
@@ -71,7 +74,7 @@ const SignUp = () => {
                 <span className="label-text">Forget Password</span>
               </label>
             </div>
-            <input className="btn btn-drak text-white w-full" type="submit" />
+            <input className="btn btn-drak text-white w-full" value="Sign up" type="submit" />
             {signUpError && <p className='text-red-500'>{signUpError}</p>}
           </form>
           <p>
